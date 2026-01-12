@@ -25,8 +25,11 @@
       <input type="text" placeholder="0x..." />
 
       <label>Tu susurro</label>
-      <textarea id="message" maxlength="280"
-        placeholder="Comparte tus pensamientos anónimos..."></textarea>
+      <textarea
+        id="message"
+        maxlength="280"
+        placeholder="Comparte tus pensamientos anónimos..."
+      ></textarea>
       <div id="counter" class="counter">0 / 280</div>
 
       <button class="send-btn">Enviar susurro</button>
@@ -39,6 +42,10 @@
 
   </div>
 
+  <!-- ethers.js (NECESARIO para MetaMask) -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.10.0/dist/ethers.umd.min.js"></script>
+
+  <!-- Tu lógica -->
   <script src="script.js"></script>
 </body>
 </html>
