@@ -19,18 +19,16 @@ tabs.forEach(btn => {
 const textarea = document.getElementById('message');
 const counter = document.getElementById('counter');
 
-if (textarea && counter) {
-  textarea.addEventListener('input', () => {
-    counter.textContent = `${textarea.value.length} / 280`;
-  });
-}
+textarea.addEventListener('input', () => {
+  counter.textContent = `${textarea.value.length} / 280`;
+});
 
 // ===============================
-// UI
+// UI elements
 // ===============================
-const sendBtn = document.querySelector('.send-btn');
 const connectBtn = document.getElementById('connectWallet');
-const addressInput = document.querySelector('input[type="text"]');
+const sendBtn = document.getElementById('sendWhisper');
+const addressInput = document.getElementById('recipient');
 
 // ===============================
 // Helpers
@@ -53,7 +51,7 @@ function showToast(msg) {
   toast.style.fontWeight = '600';
   toast.style.zIndex = '9999';
   document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 2400);
+  setTimeout(() => toast.remove(), 2500);
 }
 
 // ===============================
@@ -61,7 +59,7 @@ function showToast(msg) {
 // ===============================
 const CONTRACT_ADDRESS = "0x41B61b714a5006FD5c3B03ad8570d33B9135176d";
 const WHISPER_FEE = "0.0001";
-const BASE_CHAIN_ID = "0x2105";
+const BASE_CHAIN_ID = 8453n;
 
 const ABI = [
   {
@@ -73,11 +71,12 @@ const ABI = [
   }
 ];
 
+let provider;
 let signer;
 let contract;
 
 // ===============================
-// Connect wallet (EXPLÍCITO)
+// Connect wallet (CLARO Y EXPLÍCITO)
 // ===============================
 connectBtn.onclick = async () => {
   if (!window.ethereum) {
@@ -85,13 +84,13 @@ connectBtn.onclick = async () => {
     return;
   }
 
-  const provider = new ethers.BrowserProvider(window.ethereum);
+  provider = new ethers.BrowserProvider(window.ethereum);
   await provider.send("eth_requestAccounts", []);
   signer = await provider.getSigner();
 
   const network = await provider.getNetwork();
-  if (network.chainId !== BigInt(8453)) {
-    showToast("Cambia a Base");
+  if (network.chainId !== BASE_CHAIN_ID) {
+    showToast("Cambia tu red a Base");
     return;
   }
 
@@ -115,8 +114,9 @@ sendBtn.onclick = async () => {
     showToast("Dirección inválida");
     return;
   }
+
   if (msg.length === 0) {
-    showToast("Mensaje vacío");
+    showToast("El mensaje está vacío");
     return;
   }
 
@@ -126,7 +126,7 @@ sendBtn.onclick = async () => {
     });
     await tx.wait();
     showToast("Susurro enviado ✅");
-  } catch {
+  } catch (e) {
     showToast("Transacción cancelada");
   }
 };
