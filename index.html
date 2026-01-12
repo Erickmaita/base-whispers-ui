@@ -9,16 +9,19 @@
 <body>
   <div class="app">
 
+    <!-- HEADER -->
     <header class="header">
-      <h1>Susurros de Base</h1>
-      <p>Susurros anónimos, en la Base.</p>
+      <div class="header-left">
+        <h1>Susurros de Base</h1>
+        <p>Susurros anónimos, en la Base.</p>
+      </div>
+
+      <button id="connectWallet" class="wallet-btn">
+        Conectar wallet
+      </button>
     </header>
 
-    <!-- CONECTAR WALLET -->
-    <button id="connectWallet" class="primary-btn">
-      Conectar wallet
-    </button>
-
+    <!-- TABS -->
     <div class="tabs">
       <button class="tab active" data-tab="send">Enviar susurro</button>
       <button class="tab" data-tab="mine">Mis susurros</button>
@@ -49,7 +52,7 @@
 
   </div>
 
-  <!-- ethers.js (OBLIGATORIO) -->
+  <!-- ethers.js -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.10.0/dist/ethers.umd.min.js"></script>
 
   <!-- lógica -->
