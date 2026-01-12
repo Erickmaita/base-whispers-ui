@@ -14,8 +14,8 @@
       <p>Susurros anónimos, en la Base.</p>
     </header>
 
-    <!-- BOTÓN CONECTAR -->
-    <button id="connectWallet" class="send-btn" style="margin-bottom:16px;">
+    <!-- CONECTAR WALLET -->
+    <button id="connectWallet" class="primary-btn">
       Conectar wallet
     </button>
 
@@ -27,7 +27,7 @@
     <!-- ENVIAR -->
     <section id="send" class="tab-content active">
       <label>Dirección de la billetera del destinatario</label>
-      <input type="text" placeholder="0x..." />
+      <input id="recipient" type="text" placeholder="0x..." />
 
       <label>Tu susurro</label>
       <textarea
@@ -37,7 +37,9 @@
       ></textarea>
       <div id="counter" class="counter">0 / 280</div>
 
-      <button class="send-btn">Enviar susurro</button>
+      <button id="sendWhisper" class="send-btn">
+        Enviar susurro
+      </button>
     </section>
 
     <!-- MIS SUSURROS -->
@@ -47,8 +49,10 @@
 
   </div>
 
-  <!-- ethers -->
+  <!-- ethers.js (OBLIGATORIO) -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.10.0/dist/ethers.umd.min.js"></script>
+
+  <!-- lógica -->
   <script src="script.js"></script>
 </body>
 </html>
