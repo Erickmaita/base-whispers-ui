@@ -1,117 +1,122 @@
-:root{
-  --bg-1:#020b1c;
-  --bg-2:#071b3a;
-  --card:#0b1f44;
-  --blue:#0a5cff;
-  --cyan:#00d1ff;
-  --text:#eaf1ff;
-  --muted:#9fb3ff;
-  --radius:14px;
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at top, #0a2a66, #020617);
+  color: #e6f4ff;
 }
 
-*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto}
-html,body{margin:0;height:100%}
-body{
-  background:
-    radial-gradient(1200px 600px at 50% -10%, #0b3bff33, transparent 60%),
-    linear-gradient(180deg,var(--bg-2),var(--bg-1));
-  color:var(--text);
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 24px;
 }
 
-.app{
-  max-width:720px;
-  margin:0 auto;
-  padding:48px 20px 64px;
+/* ===== Header ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.header{
-  text-align:center;
-  margin-bottom:28px;
-}
-.header h1{
-  margin:0;
-  font-size:40px;
-  letter-spacing:.3px;
-}
-.header p{
-  margin:8px 0 0;
-  color:var(--muted);
+.header h1 {
+  margin: 0;
 }
 
-.tabs{
-  display:flex;
-  gap:6px;
-  background:#061733;
-  padding:6px;
-  border-radius:999px;
-  margin:26px auto;
-  width:fit-content;
-}
-.tab{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  padding:10px 18px;
-  border-radius:999px;
-  cursor:pointer;
-}
-.tab.active{
-  color:#fff;
-  background:linear-gradient(135deg,var(--cyan),var(--blue));
-  box-shadow:0 0 24px #00d1ff55;
+.header p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
-.tab-content{display:none}
-.tab-content.active{display:block}
-
-label{
-  display:block;
-  margin:18px 0 8px;
-  color:#cfe0ff;
-  font-size:14px;
+/* ===== Wallet button ===== */
+.wallet-btn {
+  background: linear-gradient(135deg, #00d1ff, #0a5cff);
+  color: #001b2e;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  transition: transform .15s ease, opacity .15s ease;
 }
 
-input,textarea{
-  width:100%;
-  background:var(--card);
-  border:1px solid #1a3a7a;
-  border-radius:var(--radius);
-  padding:14px 16px;
-  color:#fff;
-  outline:none;
-}
-input::placeholder,textarea::placeholder{color:#7f9cff}
-textarea{min-height:140px;resize:none}
-
-input:focus,textarea:focus{
-  border-color:var(--cyan);
-  box-shadow:0 0 0 2px #00d1ff22;
+.wallet-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
 }
 
-.counter{
-  text-align:right;
-  margin-top:6px;
-  color:var(--muted);
-  font-size:12px;
+.wallet-btn.connected {
+  background: rgba(255,255,255,0.12);
+  color: #ccecff;
+  box-shadow: none;
+  cursor: default;
 }
 
-.send-btn{
-  margin-top:22px;
-  width:100%;
-  border:0;
-  border-radius:16px;
-  padding:16px;
-  font-size:16px;
-  font-weight:600;
-  color:#001b2e;
-  background:linear-gradient(135deg,var(--cyan),var(--blue));
-  cursor:pointer;
-  box-shadow:0 12px 40px #0a5cff55;
+/* ===== Tabs ===== */
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
 }
-.send-btn:hover{filter:brightness(1.05)}
 
-.empty{
-  text-align:center;
-  color:var(--muted);
-  margin-top:40px;
+.tab {
+  background: none;
+  border: none;
+  color: #9fdcff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tab.active {
+  color: #ffffff;
+}
+
+/* ===== Content ===== */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+label {
+  display: block;
+  margin: 14px 0 6px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  resize: none;
+}
+
+.counter {
+  text-align: right;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.send-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00d1ff, #0a5cff);
+  color: #001b2e;
+}
+
+.empty {
+  opacity: 0.6;
+  text-align: center;
 }
