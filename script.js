@@ -19,114 +19,116 @@ tabs.forEach(btn => {
 const textarea = document.getElementById('message');
 const counter = document.getElementById('counter');
 
-textarea.addEventListener('input', () => {
-  counter.textContent = `${textarea.value.length} / 280`;
-});
-
-// ===============================
-// UI elements
-// ===============================
-const connectBtn = document.getElementById('connectWallet');
-const sendBtn = document.getElementById('sendWhisper');
-const addressInput = document.getElementById('recipient');
-
-// ===============================
-// Helpers
-// ===============================
-function isValidAddress(addr) {
-  return /^0x[a-fA-F0-9]{40}$/.test(addr);
-}
-
-function showToast(msg) {
-  const toast = document.createElement('div');
-  toast.textContent = msg;
-  toast.style.position = 'fixed';
-  toast.style.bottom = '24px';
-  toast.style.left = '50%';
-  toast.style.transform = 'translateX(-50%)';
-  toast.style.background = '#00d1ff';
-  toast.style.color = '#001b2e';
-  toast.style.padding = '12px 18px';
-  toast.style.borderRadius = '12px';
-  toast.style.fontWeight = '600';
-  toast.style.zIndex = '9999';
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 2500);
+if (textarea && counter) {
+  textarea.addEventListener('input', () => {
+    counter.textContent = `${textarea.value.length} / 280`;
+  });
 }
 
 // ===============================
-// Onchain config
+// Config
 // ===============================
 const CONTRACT_ADDRESS = "0x41B61b714a5006FD5c3B03ad8570d33B9135176d";
 const WHISPER_FEE = "0.0001";
-const BASE_CHAIN_ID = 8453n;
+const BASE_CHAIN_ID = "0x2105";
 
 const ABI = [
   {
-    "inputs":[{"internalType":"address","name":"recipient","type":"address"}],
-    "name":"sendWhisper",
-    "outputs":[],
-    "stateMutability":"payable",
-    "type":"function"
+    "inputs": [{ "internalType": "address", "name": "recipient", "type": "address" }],
+    "name": "sendWhisper",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
   }
 ];
 
-let provider;
+// ===============================
+// Elements
+// ===============================
+const connectBtn = document.getElementById('connectWallet');
+const sendBtn = document.getElementById('sendWhisper');
+const recipientInput = document.getElementById('recipient');
+
 let signer;
-let contract;
+let userAddress;
 
 // ===============================
-// Connect wallet (CLARO Y EXPLÍCITO)
+// Wallet connect (SAFE)
 // ===============================
-connectBtn.onclick = async () => {
+async function connectWallet() {
   if (!window.ethereum) {
-    showToast("Instala MetaMask");
+    alert("Instala MetaMask para continuar");
     return;
   }
 
-  provider = new ethers.BrowserProvider(window.ethereum);
+  const currentChain = await ethereum.request({ method: "eth_chainId" });
+
+  if (currentChain !== BASE_CHAIN_ID) {
+    try {
+      await ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: BASE_CHAIN_ID }]
+      });
+    } catch (e) {
+      alert("Debes cambiar a Base para usar esta app");
+      return;
+    }
+  }
+
+  const provider = new ethers.BrowserProvider(window.ethereum);
   await provider.send("eth_requestAccounts", []);
   signer = await provider.getSigner();
+  userAddress = await signer.getAddress();
 
-  const network = await provider.getNetwork();
-  if (network.chainId !== BASE_CHAIN_ID) {
-    showToast("Cambia tu red a Base");
-    return;
-  }
-
-  contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
-  showToast("Wallet conectada ✅");
-};
+  connectBtn.textContent = `Wallet: ${userAddress.slice(0,6)}…${userAddress.slice(-4)}`;
+  connectBtn.classList.add('connected');
+  connectBtn.disabled = true;
+}
 
 // ===============================
-// Send whisper
+// Send whisper (SAFE)
 // ===============================
-sendBtn.onclick = async () => {
-  if (!contract) {
-    showToast("Conecta tu wallet primero");
+async function sendWhisper() {
+  if (!signer) {
+    alert("Conecta tu wallet primero");
     return;
   }
 
-  const addr = addressInput.value.trim();
-  const msg = textarea.value.trim();
+  const recipient = recipientInput.value.trim();
+  const message = textarea.value.trim();
 
-  if (!isValidAddress(addr)) {
-    showToast("Dirección inválida");
+  if (!ethers.isAddress(recipient)) {
+    alert("Dirección inválida");
     return;
   }
 
-  if (msg.length === 0) {
-    showToast("El mensaje está vacío");
+  if (message.length === 0) {
+    alert("El mensaje está vacío");
     return;
   }
+
+  const ok = confirm(
+    `Enviar susurro\n\nFee: ${WHISPER_FEE} ETH\nDestino: ${recipient.slice(0,6)}…${recipient.slice(-4)}`
+  );
+
+  if (!ok) return;
 
   try {
-    const tx = await contract.sendWhisper(addr, {
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+    const tx = await contract.sendWhisper(recipient, {
       value: ethers.parseEther(WHISPER_FEE)
     });
     await tx.wait();
-    showToast("Susurro enviado ✅");
+    alert("Susurro enviado ✅");
+    textarea.value = "";
+    counter.textContent = "0 / 280";
   } catch (e) {
-    showToast("Transacción cancelada");
+    alert("Transacción cancelada o fallida");
   }
-};
+}
+
+// ===============================
+// Events
+// ===============================
+connectBtn.addEventListener('click', connectWallet);
+sendBtn.addEventListener('click', sendWhisper);
