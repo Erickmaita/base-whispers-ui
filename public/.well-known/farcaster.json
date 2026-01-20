@@ -1,0 +1,16 @@
+{
+  "version": "1",
+  "name": "Base Whispers",
+  "subtitle": "Anonymous messages to Base wallets",
+  "description": "Send short anonymous whispers directly to any Base wallet using a simple onchain fee. No accounts. No profiles.",
+  "primaryCategory": "social",
+  "tags": ["privacy", "messaging", "base", "onchain"],
+  "iconUrl": "https://base-whispers-ui.vercel.app/icon.png",
+  "heroImageUrl": "https://base-whispers-ui.vercel.app/hero.png",
+  "homeUrl": "https://base-whispers-ui.vercel.app",
+  "accountAssociation": {
+    "header": "eyJmaWQiOjEzNzU2MTIsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHg5Zjk3RjA1REIwREM0MUU2NTY5QTUyOTkyNjE0OWMwOTg3NzlkMDM2In0",
+    "payload": "eyJkb21haW4iOiJiYXNlLXdoaXNwZXJzLXVpLnZlcmNlbC5hcHAifQ",
+    "signature": "M4lEfcLLv93ySYR+DzoLCK9ahXd7XeBbgtZKi1V6ahIt9vfgOIoC6q4jZGsX0E0G/5jJhZAdCyfclZFWGIEf2Rs="
+  }
+}
