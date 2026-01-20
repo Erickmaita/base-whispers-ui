@@ -7,9 +7,10 @@
   "tags": ["privacy", "messaging", "base", "onchain"],
 
   "iconUrl": "https://base-whispers-ui.vercel.app/icon.png",
+  "homeUrl": "https://base-whispers-ui.vercel.app",
+
   "splashImageUrl": "https://base-whispers-ui.vercel.app/hero.png",
   "splashBackgroundColor": "#0A0F1F",
-  "homeUrl": "https://base-whispers-ui.vercel.app",
 
   "accountAssociation": {
     "header": "eyJmaWQiOjEzNzU2MTIsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHg5Zjk3RjA1REIwREM0MUU2NTY5QTUyOTkyNjE0OWMwOTg3NzlkMDM2In0",
