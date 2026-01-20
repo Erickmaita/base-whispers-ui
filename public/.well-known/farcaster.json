@@ -12,8 +12,8 @@
   "homeUrl": "https://base-whispers-ui.vercel.app",
 
   "accountAssociation": {
-    "header": "…",
-    "payload": "…",
-    "signature": "…"
+    "header": "eyJmaWQiOjEzNzU2MTIsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHg5Zjk3RjA1REIwREM0MUU2NTY5QTUyOTkyNjE0OWMwOTg3NzlkMDM2In0",
+    "payload": "eyJkb21haW4iOiJiYXNlLXdoaXNwZXJzLXVpLnZlcmNlbC5hcHAifQ",
+    "signature": "M4lEfcLLv93ySYR+DzoLCK9ahXd7XeBbgtZKi1V6ahIt9vfgOIoC6q4jZGsX0E0G/5jJhZAdCyfclZFWGIEf2Rs="
   }
 }
