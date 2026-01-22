@@ -3,6 +3,7 @@
   "name": "Base Whispers",
   "subtitle": "Anonymous messages to Base wallets",
   "description": "Send short anonymous whispers directly to any Base wallet using a simple onchain fee. No accounts. No profiles.",
+
   "primaryCategory": "social",
   "tags": ["privacy", "messaging", "base", "onchain"],
 
