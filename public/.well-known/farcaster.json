@@ -10,6 +10,8 @@
     "iconUrl": "https://base-whispers-ui.vercel.app/icon.png",
     "homeUrl": "https://base-whispers-ui.vercel.app",
     "imageUrl": "https://base-whispers-ui.vercel.app/hero.png",
+    "splashImageUrl": "https://base-whispers-ui.vercel.app/hero.png",
+    "splashBackgroundColor": "#0A0B0D",
     "buttonTitle": "Send Whisper",
     "subtitle": "Anonymous messages to Base wallets",
     "description": "Send short anonymous whispers directly to any Base wallet using a simple onchain fee. No accounts. No profiles.",
