@@ -80,7 +80,7 @@ async function connectWallet() {
   signer = await provider.getSigner();
   userAddress = await signer.getAddress();
 
-  connectBtn.textContent = `Wallet: ${userAddress.slice(0,6)}…${userAddress.slice(-4)}`;
+  connectBtn.textContent = `Wallet: ${userAddress.slice(0, 6)}…${userAddress.slice(-4)}`;
   connectBtn.classList.add('connected');
   connectBtn.disabled = true;
 }
@@ -108,7 +108,7 @@ async function sendWhisper() {
   }
 
   const ok = confirm(
-    `Enviar susurro\n\nFee: ${WHISPER_FEE} ETH\nDestino: ${recipient.slice(0,6)}…${recipient.slice(-4)}`
+    `Enviar susurro\n\nFee: ${WHISPER_FEE} ETH\nDestino: ${recipient.slice(0, 6)}…${recipient.slice(-4)}`
   );
 
   if (!ok) return;
@@ -132,3 +132,12 @@ async function sendWhisper() {
 // ===============================
 connectBtn.addEventListener('click', connectWallet);
 sendBtn.addEventListener('click', sendWhisper);
+
+// ===============================
+// MiniKit READY SIGNAL (OBLIGATORIO)
+// ===============================
+window.addEventListener("load", () => {
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: "miniapp:ready" }, "*");
+  }
+});
